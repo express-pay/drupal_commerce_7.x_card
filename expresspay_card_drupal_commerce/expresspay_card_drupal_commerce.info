@@ -1,0 +1,6 @@
+name = Экспресс платежи: интернет-эквайринг
+description = Предоставляет способ оплаты с помощью банковских карт онлайн (интернет-эквайринг)
+package = Commerce (contrib)
+dependencies[] = commerce
+dependencies[] = commerce_payment
+core = 7.x
