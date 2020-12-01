@@ -170,11 +170,11 @@ function expresspay_card_drupal_commerce_redirect_form($form, &$form_state, $ord
 
 	//drupal_set_message(t('amount : ' . $amount), 'debug');
 
-	$form['serviceid'] 			= array('#type' => 'hidden', '#value' => $service_id);
+	$form['serviceid'] 			= array('#type' => 'hidden', '#value' => expresspay_card_drupal_commerce_get_settings('serviceId'));
 	$form["accountno"]			= array('#type' => 'hidden', '#value' => $order_id);
 	$form["amount"]				= array('#type' => 'hidden', '#value' => $amount);
 	$form["currency"]			= array('#type' => 'hidden', '#value' => $currency_code);
-	$form["info"]				= array('#type' => 'hidden', '#value' => 'Оплата заказа номер ' .$order_id. ' в магазине r-velo.by');
+	$form["info"]				= array('#type' => 'hidden', '#value' => 'Оплата заказа номер ' .$order_id);
 	$form["returntype"]			= array('#type' => 'hidden', '#value' => 'redirect');
 	$form["returnurl"]			= array('#type' => 'hidden', '#value' => $GLOBALS['base_root'].'/commerce/expresspay_card/success?accountno=' . $order_id);//$GLOBALS['base_root'].'/commerce/expresspay_card/success';
 	$form["failurl"]			= array('#type' => 'hidden', '#value' => $GLOBALS['base_root'].'/commerce/expresspay_card/fail');//$GLOBALS['base_root'].'/commerce/expresspay_card/fail';
@@ -182,13 +182,13 @@ function expresspay_card_drupal_commerce_redirect_form($form, &$form_state, $ord
 	//формирования массива для цифровой подписи
 	$sign_params = array(
 		'token' 			=> expresspay_card_drupal_commerce_get_settings('token'),
-		'serviceid' 		=> $service_id,
+		'serviceid' 		=> expresspay_card_drupal_commerce_get_settings('serviceId'),
 		'accountno' 		=> $order_id,
 		'amount'			=> $amount,
 		'currency'			=> $currency_code,
 		'expiration'		=> '',
-		'info'				=> 'Тест',
-		'returnurl'			=> $GLOBALS['base_root'].'/commerce/expresspay_card/success',
+		'info'				=> 'Оплата заказа номер ' .$order_id,
+		'returnurl'			=>  $GLOBALS['base_root'].'/commerce/expresspay_card/success?accountno=' . $order_id,
 		'failurl'			=> $GLOBALS['base_root'].'/commerce/expresspay_card/fail',
 		'returntype'		=> 'redirect'
 	);
